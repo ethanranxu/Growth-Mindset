@@ -215,9 +215,9 @@ export default function RandomisePage() {
                   </div>
                   <div className="ml-4">
                     <h3 className="text-[#04284b] font-bold text-base mb-2">Study ID generated</h3>
-                    <div className="flex items-center bg-[#eef6f3] text-[#006764] font-medium text-[13.5px] px-3 py-2 rounded-md border border-[#d5ebe1] mb-2 w-full max-w-[340px]">
-                      <IconProfileSquare className="w-5 h-5 mr-2 shrink-0" />
-                      <span className="truncate">{participantIdDisplay}</span>
+                    <div className="flex items-center bg-[#eef6f3] text-[#006764] font-medium px-3.5 py-2 rounded-lg border border-[#d5ebe1] mb-2 w-fit max-w-full shadow-2xs">
+                      <IconProfileSquare className="w-5 h-5 mr-2.5 shrink-0" />
+                      <span className="font-mono text-xs sm:text-sm font-bold tracking-tight select-all">{participantIdDisplay}</span>
                     </div>
                     <p className="text-gray-600 text-sm leading-snug">This ID does not contain your name, email, phone number, WeChat ID, or hospital name.</p>
                   </div>
