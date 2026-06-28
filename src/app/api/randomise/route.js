@@ -7,7 +7,7 @@ export async function POST(request) {
     const { participant_id } = await request.json();
 
     if (!participant_id) {
-      return NextResponse.json({ error: '缺少参与者ID' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing participant ID' }, { status: 400 });
     }
 
     const supabase = createServerClient();
@@ -41,12 +41,12 @@ export async function POST(request) {
 
     if (error) {
       console.error('Randomisation update error:', error);
-      return NextResponse.json({ error: '分组失败' }, { status: 500 });
+      return NextResponse.json({ error: 'Allocation failed' }, { status: 500 });
     }
 
     return NextResponse.json({ allocation });
   } catch (err) {
     console.error('Randomise API error:', err);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

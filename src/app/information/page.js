@@ -1,82 +1,168 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import FlowStepper from '@/components/FlowStepper';
+import Link from 'next/link';
+import AppHeader from '@/components/AppHeader';
+import AppFooter from '@/components/AppFooter';
+import { playClick } from '@/utils/audioEffects';
 
 const sections = [
   {
-    title: '研究目的',
-    content: '本研究旨在探讨学习心态如何影响大学生的学业表现和心理健康。通过了解不同学习心态的作用，我们希望为教育实践和学生支持提供科学依据。',
+    title: 'Study Purpose',
+    content: 'This academic research project investigates how structured online learning interventions influence psychological mindsets, professional adaptation, and clinical experiences among early-career nurses. By exploring the mechanisms of learning mindsets, we aim to build a scientific evidence base for nursing education and student support programs.',
   },
   {
-    title: '参与内容',
-    content: '您将被邀请完成一系列简短的在线问卷，并参与一个约15分钟的在线学习活动。整个过程预计需要20-30分钟，您可以在任何方便的时间和地点通过手机或电脑完成。',
+    title: 'What Participation Involves',
+    content: 'You will be invited to complete brief baseline questionnaires and participate in a structured online learning activity lasting approximately 15 minutes. The entire session is estimated to take 20–30 minutes, which you can complete on your smartphone or computer at any convenient time and location.',
   },
   {
-    title: '自愿参与',
-    content: '参与本研究完全自愿。您可以在任何时候决定不参与或退出研究，无需提供任何理由，这不会对您产生任何负面影响。',
+    title: 'Voluntary Participation',
+    content: 'Participation in this study is strictly voluntary. You may choose not to participate or to withdraw at any time without giving a reason, and without any penalty or impact on your professional standing.',
   },
   {
-    title: '保密性',
-    content: '本研究不收集您的姓名、学号等直接身份信息。您的回答将使用随机编号进行标识，所有数据将被安全存储，仅用于学术研究目的。研究结果将以汇总形式呈现，不会涉及任何个人信息。',
+    title: 'Confidentiality & Data Protection',
+    content: 'This study does not collect direct personal identification such as your name or employee ID. Your responses are identified solely by a randomly assigned Participant ID. All data are stored securely on encrypted servers and used strictly for academic research. Findings will be reported in aggregated formats only.',
   },
   {
-    title: '可能的不适与支持',
-    content: '本研究涉及的问卷和活动内容不预期会引起明显不适。如果您在参与过程中感到不适，可以随时停止。如需支持，请联系您所在学校的心理咨询中心。',
+    title: 'Potential Risks & Support Resources',
+    content: 'The questionnaires and learning content are designed to be safe and non-invasive. However, if reflecting on work experiences causes any discomfort, you may pause or withdraw at any time. Free and confidential support is available through your institution employee assistance program or local counseling services.',
   },
   {
-    title: '退出与数据删除',
-    content: '如果您在完成前退出，已提交的数据可能会被保留用于分析，但您可以联系研究者要求删除您的数据。由于数据不包含身份信息，请保留您的参与者编号以便后续联系。',
+    title: 'Withdrawal & Data Deletion',
+    content: 'If you decide to withdraw before completion, previously submitted data may be retained for aggregate analysis. However, you may contact the research team to request complete data deletion by providing your unique Participant ID.',
   },
 ];
 
 export default function InformationPage() {
   const router = useRouter();
 
+  const handleProceed = () => {
+    playClick();
+    router.push('/consent');
+  };
+
   return (
-    <div className="page-container">
-      <FlowStepper currentStep={0} />
+    <div className="min-h-screen bg-[#fafafa] flex flex-col font-sans">
+      <AppHeader />
 
-      <div className="page-header">
-        <h1>参与者信息</h1>
-        <p>请在同意参与前仔细阅读以下信息</p>
-      </div>
-
-      <div className="page-content">
-        {sections.map((section, i) => (
-          <div key={section.title} className="card animate-fadeIn" style={{ animationDelay: `${i * 0.08}s` }}>
-            <h3 style={{ marginBottom: 'var(--space-sm)', color: 'var(--color-primary-dark)', fontSize: 'var(--font-size-lg)', fontWeight: 600 }}>
-              {section.title}
-            </h3>
-            <p style={{ color: 'var(--color-text-secondary)', lineHeight: 1.8 }}>
-              {section.content}
-            </p>
+      {/* ===== MAIN CONTENT ===== */}
+      <main className="flex-grow flex flex-col items-center pt-8 pb-20 px-4 md:px-8">
+        {/* Hero Header */}
+        <div className="text-center mb-8 max-w-3xl">
+          <div className="flex justify-center mb-4">
+            <img src="/logo.png" alt="Growth Mindset Logo" className="w-28 h-28 object-contain" />
           </div>
-        ))}
-
-        <div className="card" style={{ background: 'var(--color-primary-bg)', borderColor: 'var(--color-primary-light)' }}>
-          <h3 style={{ marginBottom: 'var(--space-sm)', color: 'var(--color-primary-dark)', fontSize: 'var(--font-size-lg)', fontWeight: 600 }}>
-            联系方式
-          </h3>
-          <p style={{ color: 'var(--color-text-secondary)', lineHeight: 1.8, marginBottom: 'var(--space-sm)' }}>
-            如果您对本研究有任何疑问，请联系：
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            <strong>研究者：</strong>XXX（ajhz590@aucklanduni.ac.nz）<br />
-            <strong>导　师：</strong>XXX 教授（supervisor@university.ac.xx）
+          <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#04284b] mb-3 tracking-wide">
+            Participant Information Sheet
+          </h1>
+          <p className="text-lg font-medium text-[#006764]">
+            Please read the following information carefully before agreeing to participate.
           </p>
         </div>
-      </div>
 
-      <div className="page-footer">
-        <button
-          className="btn btn--primary btn--block btn--lg"
-          onClick={() => router.push('/consent')}
-          id="btn-to-consent"
-        >
-          继续到知情同意
-        </button>
-      </div>
+        {/* Stepper (Step 1 Active) */}
+        <div className="flex justify-center items-center w-full max-w-4xl mx-auto mb-10 relative select-none">
+          <div className="absolute top-[30px] left-[10%] right-[10%] border-t-2 border-dotted border-gray-300 z-0" />
+          {[
+            { num: 1, label: 'Information & Consent' },
+            { num: 2, label: 'Eligibility' },
+            { num: 3, label: 'Baseline survey' },
+            { num: 4, label: 'Online activity' },
+            { num: 5, label: 'Post-study survey' },
+          ].map((step, index) => {
+            const isCurrent = step.num === 1;
+            return (
+              <div key={index} className="flex flex-col items-center w-1/5 relative z-10">
+                <div
+                  className={`w-[54px] h-[54px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center font-bold text-xl md:text-2xl mb-2 shadow-sm ${
+                    isCurrent
+                      ? 'bg-[#006764] text-white border-2 border-white ring-4 ring-[#eaf4f0]'
+                      : 'bg-[#f4f6f8] text-[#04284b] border border-gray-200'
+                  }`}
+                >
+                  {step.num}
+                </div>
+                <span
+                  className={`text-xs md:text-sm font-semibold text-center ${
+                    isCurrent ? 'text-[#006764]' : 'text-[#04284b]'
+                  }`}
+                >
+                  {step.label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Content Cards */}
+        <div className="max-w-4xl w-full flex flex-col space-y-6">
+          
+          {/* Full PIS Banner Prompt */}
+          <div className="bg-gradient-to-r from-[#f0f7f6] via-[#eaf4f0] to-[#f0f7f6] p-6 rounded-2xl border-2 border-[#99d6d3] shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+              <h3 className="text-[#006764] font-bold text-base md:text-lg mb-1">
+                📄 Full Participant Information Sheet
+              </h3>
+              <p className="text-slate-600 text-xs md:text-sm leading-relaxed">
+                Want to read the complete 13-section research protocol, ethical statement, AWS data hosting details, and withdrawal rights?
+              </p>
+            </div>
+            <Link
+              href="/information/full"
+              className="px-5 py-2.5 rounded-xl bg-white hover:bg-[#006764] text-[#006764] hover:text-white font-bold text-xs md:text-sm transition-all border border-[#99d6d3] shadow-xs shrink-0 text-center"
+            >
+              Read Full PIS →
+            </Link>
+          </div>
+
+          {sections.map((section, i) => (
+            <div
+              key={section.title}
+              className="bg-white rounded-2xl p-7 border border-slate-200 shadow-xs transition-all hover:shadow-md"
+            >
+              <h2 className="text-[#04284b] text-xl font-bold font-serif mb-3">
+                {i + 1}. {section.title}
+              </h2>
+              <p className="text-slate-700 text-sm md:text-base leading-relaxed">
+                {section.content}
+              </p>
+            </div>
+          ))}
+
+          {/* Research Contact Card */}
+          <div className="bg-gradient-to-br from-[#f0f7f6] to-[#e0f2f1] rounded-2xl p-7 border-2 border-[#99d6d3] shadow-sm">
+            <h2 className="text-[#006764] text-xl font-bold font-serif mb-3">
+              Research Team &amp; Inquiries
+            </h2>
+            <p className="text-[#04284b] text-sm md:text-base leading-relaxed mb-3">
+              If you have any questions regarding this study or your rights as a participant, please contact the research team:
+            </p>
+            <div className="bg-white/80 backdrop-blur-xs p-4 rounded-xl border border-[#99d6d3] text-sm text-[#04284b] space-y-1.5">
+              <p><strong>Principal Researcher:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] font-bold hover:underline">ajhz590@aucklanduni.ac.nz</a>)</p>
+              <p><strong>Research Supervisor:</strong> School of Nursing, University of Auckland</p>
+            </div>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="pt-4 flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Link
+              href="/information/full"
+              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-bold text-base transition-all shadow-xs text-center"
+            >
+              📄 Read Full Information Sheet
+            </Link>
+            <button
+              onClick={handleProceed}
+              id="btn-to-consent"
+              className="w-full sm:w-auto px-10 py-4 rounded-xl bg-[#006764] hover:bg-[#005250] text-white font-bold text-base transition-all shadow-md hover:shadow-lg cursor-pointer"
+            >
+              Continue to Informed Consent →
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <AppFooter />
     </div>
   );
 }

@@ -67,69 +67,49 @@ export default function RandomisePage() {
   const router = useRouter();
   const [allocationUrl, setAllocationUrl] = useState(null);
   const [hasClickedContinue, setHasClickedContinue] = useState(false);
-  const [participantIdDisplay, setParticipantIdDisplay] = useState('ECN-XXXX');
+  const [participantIdDisplay, setParticipantIdDisplay] = useState('');
   const timeoutRef = useRef(null);
 
   useEffect(() => {
-    const doRandomise = async () => {
-      // Temporarily use a mock ID for preview
-      const participantId = getParticipantId() || 'f47ac10b-58cc-4372-a567-0e02b2c3d479';
-      // if (!participantId) {
-      //   router.replace('/');
-      //   return;
-      // }
-      setParticipantIdDisplay(participantId);
+    const participantId = getParticipantId();
+    setParticipantIdDisplay(participantId);
 
-      try {
-        const res = await fetch('/api/randomise', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ participant_id: participantId }),
-        });
+    const storageKey = `gm_allocation_${participantId}`;
+    let allocated = localStorage.getItem(storageKey);
 
-        const data = await res.json();
+    // Instant synchronous 50/50 allocation lock upon mount
+    if (!allocated) {
+      allocated = Math.random() < 0.5 ? 'gmi' : 'control';
+      localStorage.setItem(storageKey, allocated);
+    }
 
-        // --- PREVIEW FALLBACK ---
-        // If the real DB update fails because we are using a fake ID, fallback to mock data
-        if (!res.ok) {
-          console.warn('API Error, using fallback allocation for preview:', data.error);
-          data.allocation = 'gmi'; // Default to 'gmi' for preview purposes
-        }
+    setFlowState('randomisation');
+    const targetUrl = allocated === 'gmi' ? '/module/gmi/1' : '/module/control/1';
+    setAllocationUrl(targetUrl);
 
-        setFlowState('randomisation');
-        const targetUrl = data.allocation === 'gmi' ? '/module/gmi' : '/module/control';
-        setAllocationUrl(targetUrl);
+    // Background silent sync to API
+    fetch('/api/randomise', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ participant_id: participantId }),
+    }).catch((err) => console.log('Sync log notice:', err));
 
-        // Auto redirect after 3 seconds
-        timeoutRef.current = setTimeout(() => {
-          router.push(targetUrl);
-        }, 3000);
-      } catch (err) {
-        console.error("Randomise error:", err);
-      }
-    };
-
-    doRandomise();
+    // Auto redirect after 3 seconds
+    timeoutRef.current = setTimeout(() => {
+      router.push(targetUrl);
+    }, 3000);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, [router]);
 
-  useEffect(() => {
-    if (allocationUrl && hasClickedContinue) {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      router.push(allocationUrl);
-    }
-  }, [allocationUrl, hasClickedContinue, router]);
-
   const handleContinue = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    if (allocationUrl) {
-      router.push(allocationUrl);
-    } else {
-      setHasClickedContinue(true);
-    }
+    const participantId = getParticipantId();
+    const allocated = localStorage.getItem(`gm_allocation_${participantId}`) || 'gmi';
+    const target = allocated === 'gmi' ? '/module/gmi/1' : '/module/control/1';
+    router.push(target);
   };
 
   return (
@@ -146,10 +126,10 @@ export default function RandomisePage() {
           </div>
           <nav className="hidden md:block">
             <ul className="flex space-x-8 text-sm font-medium text-gray-700">
-              <li><a className="hover:text-teal-custom transition-colors" href="#">Home</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">Research Team</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">Contact</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">FAQs</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/">Home</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/team">Research Team</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/contact-us">Contact</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/faqs">FAQs</a></li>
             </ul>
           </nav>
         </div>

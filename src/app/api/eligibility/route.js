@@ -7,7 +7,7 @@ export async function POST(request) {
     const { session_id, responses, is_eligible } = await request.json();
 
     if (!session_id || !responses) {
-      return NextResponse.json({ error: '缺少必要字段' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const supabase = createServerClient();
@@ -24,7 +24,7 @@ export async function POST(request) {
 
     if (eligError) {
       console.error('Eligibility insert error:', eligError);
-      return NextResponse.json({ error: '保存失败' }, { status: 500 });
+      return NextResponse.json({ error: 'Save failed' }, { status: 500 });
     }
 
     // If eligible, create participant record
@@ -50,7 +50,7 @@ export async function POST(request) {
 
       if (partError) {
         console.error('Participant insert error:', partError);
-        return NextResponse.json({ error: '创建参与者记录失败' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to create participant record' }, { status: 500 });
       }
 
       return NextResponse.json({ eligible: true, participant_id: participantId });
@@ -59,6 +59,6 @@ export async function POST(request) {
     return NextResponse.json({ eligible: false });
   } catch (err) {
     console.error('Eligibility API error:', err);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

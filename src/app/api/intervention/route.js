@@ -6,7 +6,7 @@ export async function POST(request) {
     const { participant_id, module_type, started_at, engagement_data } = await request.json();
 
     if (!participant_id || !module_type) {
-      return NextResponse.json({ error: '缺少必要字段' }, { status: 400 });
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
     const supabase = createServerClient();
@@ -24,7 +24,7 @@ export async function POST(request) {
 
     if (error) {
       console.error('Intervention insert error:', error);
-      return NextResponse.json({ error: '保存失败' }, { status: 500 });
+      return NextResponse.json({ error: 'Save failed' }, { status: 500 });
     }
 
     await supabase
@@ -35,6 +35,6 @@ export async function POST(request) {
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('Intervention API error:', err);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

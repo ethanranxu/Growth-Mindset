@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-
 export default function AppFooter() {
   return (
     <footer className="bg-footer-bg py-12 px-8 mt-auto">
@@ -10,7 +8,7 @@ export default function AppFooter() {
           <div>
             <div className="flex items-center space-x-3 mb-6">
               <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-white overflow-hidden shadow-xs">
-                <Image src="/logo.png" alt="Logo" width={40} height={40} className="w-10 h-10 object-contain" />
+                <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
               </div>
               <span className="font-medium text-white leading-tight tracking-wide">Academic Research Project</span>
             </div>

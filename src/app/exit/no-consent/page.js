@@ -35,9 +35,9 @@ export default function NoConsentPage() {
           <nav className="hidden md:block">
             <ul className="flex space-x-8 text-sm font-medium text-gray-700">
               <li><a className="hover:text-teal-custom transition-colors" href="/">Home</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">Research Team</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">Contact</a></li>
-              <li><a className="hover:text-teal-custom transition-colors" href="#">FAQs</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/team">Research Team</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/contact-us">Contact</a></li>
+              <li><a className="hover:text-teal-custom transition-colors" href="/faqs">FAQs</a></li>
             </ul>
           </nav>
         </div>

@@ -38,7 +38,12 @@ export function setSessionToken(token) {
 
 export function getParticipantId() {
   if (typeof window === 'undefined') return null;
-  return localStorage.getItem(PARTICIPANT_KEY);
+  let id = localStorage.getItem(PARTICIPANT_KEY);
+  if (!id || id.startsWith('ECN-')) {
+    id = getSessionToken() || generateSessionToken();
+    localStorage.setItem(PARTICIPANT_KEY, id);
+  }
+  return id;
 }
 
 export function setParticipantId(id) {
@@ -92,21 +97,40 @@ const MAX_MODULE_KEY = 'gm_max_module';
 
 export function getMaxModule() {
   if (typeof window === 'undefined') return 1;
-  return parseInt(localStorage.getItem(MAX_MODULE_KEY) || '1', 10);
+  const id = getParticipantId();
+  const key = id ? `${MAX_MODULE_KEY}_${id}` : MAX_MODULE_KEY;
+  return parseInt(localStorage.getItem(key) || '1', 10);
 }
 
 export function setMaxModule(num) {
   if (typeof window === 'undefined') return;
+  const id = getParticipantId();
+  const key = id ? `${MAX_MODULE_KEY}_${id}` : MAX_MODULE_KEY;
   const current = getMaxModule();
   if (num > current) {
-    localStorage.setItem(MAX_MODULE_KEY, num.toString());
+    localStorage.setItem(key, num.toString());
   }
 }
 
 export function clearSession() {
   if (typeof window === 'undefined') return;
+  const id = getParticipantId();
+  if (id) {
+    localStorage.removeItem(`${MAX_MODULE_KEY}_${id}`);
+    localStorage.removeItem(`gm_allocation_${id}`);
+  }
   localStorage.removeItem(SESSION_KEY);
   localStorage.removeItem(PARTICIPANT_KEY);
   localStorage.removeItem(FLOW_STATE_KEY);
   localStorage.removeItem(MAX_MODULE_KEY);
+}
+
+export function initNewParticipantSession() {
+  if (typeof window === 'undefined') return null;
+  clearSession();
+  const newId = crypto.randomUUID();
+  localStorage.setItem(SESSION_KEY, newId);
+  localStorage.setItem(PARTICIPANT_KEY, newId);
+  localStorage.setItem(FLOW_STATE_KEY, 'information');
+  return newId;
 }

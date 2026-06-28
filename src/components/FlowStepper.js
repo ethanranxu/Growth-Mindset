@@ -4,7 +4,7 @@
  * Flow stepper dots showing participant progress
  */
 const STEP_LABELS = [
-  '信息', '同意', '筛查', '基线', '学习活动', '后测', '完成',
+  'Information', 'Consent', 'Eligibility', 'Baseline', 'Online activity', 'Post-test', 'Completed',
 ];
 
 export default function FlowStepper({ currentStep = 0 }) {

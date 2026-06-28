@@ -1,7 +1,9 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { setFlowState, initNewParticipantSession } from '@/lib/session';
+import AppHeader from '@/components/AppHeader';
 
 /* ====== Reusable SVG Icons ====== */
 const IconCheck = ({ className }) => (
@@ -121,29 +123,18 @@ const decideItems = [
 export default function LandingPage() {
   const router = useRouter();
 
-  const goToInfo = () => router.push('/consent');
+  useEffect(() => {
+    initNewParticipantSession();
+  }, []);
+
+  const goToInfo = () => {
+    initNewParticipantSession();
+    router.push('/information');
+  };
 
   return (
     <>
-      {/* ===== HEADER ===== */}
-      <header className="bg-bg-main py-4 px-8 border-b border-gray-200 sticky top-0 z-50 shadow-xs">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-gray-300 overflow-hidden shadow-xs">
-              <Image src="/logo.png" alt="Logo" width={40} height={40} className="w-10 h-10 object-contain" />
-            </div>
-            <span className="font-medium text-gray-800 tracking-wide">Academic Research Project</span>
-          </div>
-          <nav className="hidden md:block">
-            <ul className="flex space-x-8 text-sm font-medium text-gray-700">
-              <li><a className="hover:text-teal-custom transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-teal-custom after:scale-x-0 hover:after:scale-x-100 after:transition-transform duration-300" href="#">Home</a></li>
-              <li><a className="hover:text-teal-custom transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-teal-custom after:scale-x-0 hover:after:scale-x-100 after:transition-transform duration-300" href="#">Research Team</a></li>
-              <li><a className="hover:text-teal-custom transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-teal-custom after:scale-x-0 hover:after:scale-x-100 after:transition-transform duration-300" href="#">Contact</a></li>
-              <li><a className="hover:text-teal-custom transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-teal-custom after:scale-x-0 hover:after:scale-x-100 after:transition-transform duration-300" href="#">FAQs</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
+      <AppHeader />
 
       <main>
         {/* ===== HERO & PROCESS STEPS ===== */}
@@ -161,7 +152,7 @@ export default function LandingPage() {
           <div className="max-w-6xl mx-auto text-center relative z-10">
             {/* Logo */}
             <div className="flex justify-center mb-4 transition-transform duration-500 hover:scale-105">
-              <Image src="/logo.png" alt="Growth Mindset Logo" width={120} height={120} className="w-30 h-30 object-contain" />
+              <img src="/logo.png" alt="Growth Mindset Logo" className="w-30 h-30 object-contain" />
             </div>
 
             {/* Titles */}
@@ -328,7 +319,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center space-x-3 mb-6">
                 <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center border border-white overflow-hidden shadow-xs">
-                  <Image src="/logo.png" alt="Logo" width={40} height={40} className="w-10 h-10 object-contain" />
+                  <img src="/logo.png" alt="Logo" className="w-10 h-10 object-contain" />
                 </div>
                 <span className="font-medium text-white leading-tight tracking-wide">Academic Research Project</span>
               </div>

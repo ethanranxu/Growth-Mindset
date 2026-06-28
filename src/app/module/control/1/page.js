@@ -147,7 +147,7 @@ export default function ControlModule1Page() {
       case 'myths':
         return typingDone && mythRevealed;
       case 'quiz':
-        return typingDone && quizCompleted;
+        return quizCompleted;
       default:
         return typingDone;
     }
@@ -202,7 +202,7 @@ export default function ControlModule1Page() {
     <div className="flex flex-col md:flex-row items-center gap-6 md:gap-10 animate-fadeIn">
       <NurseCharacter pose="welcome" size={380} />
       <div className="flex-1">
-        <h2 style={STYLES.h2}>Control Module 1</h2>
+        <h2 style={STYLES.h2}>Learning Module 1</h2>
         <p style={{ ...STYLES.sub, color: '#006764', fontWeight: 600 }}>
           Basic Brain Functions and Functional Localization
         </p>
@@ -560,7 +560,7 @@ export default function ControlModule1Page() {
             onMouseEnter={(e) => { if (canProceed()) e.currentTarget.style.transform = 'translateY(-1px)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
           >
-            {submitting ? 'Submitting...' : isLastScene ? 'Continue to Control Module 2 →' : 'Continue →'}
+            {submitting ? 'Submitting...' : isLastScene ? 'Continue to Module 2 →' : 'Continue →'}
           </button>
         </div>
 
