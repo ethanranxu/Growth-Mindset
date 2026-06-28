@@ -74,7 +74,7 @@ const BRAIN_REGIONS = [
 
 export default function BrainMapExplorer({ onExploreComplete }) {
   const [explored, setExplored] = useState(new Set());
-  const [selectedRegion, setSelectedRegion] = useState(BRAIN_REGIONS[0]);
+  const [selectedRegion, setSelectedRegion] = useState(null);
 
   const handleSelect = (region) => {
     playClick();
@@ -218,7 +218,7 @@ export default function BrainMapExplorer({ onExploreComplete }) {
         </div>
 
         {/* Integrated Bottom Section: Selected Region Functional Details */}
-        {selectedRegion && (
+        {selectedRegion ? (
           <div
             style={{
               padding: '22px 24px',
@@ -235,7 +235,7 @@ export default function BrainMapExplorer({ onExploreComplete }) {
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#04284b', margin: 0, fontFamily: 'var(--font-serif)' }}>
                     {selectedRegion.name}
                   </h3>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: selectedRegion.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight 800, color: selectedRegion.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     FUNCTIONAL ZONE DETAILS
                   </span>
                 </div>
@@ -257,6 +257,16 @@ export default function BrainMapExplorer({ onExploreComplete }) {
                 <p className="text-xs font-medium text-slate-700 leading-relaxed">{selectedRegion.desc}</p>
               </div>
             </div>
+          </div>
+        ) : (
+          <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center animate-fadeIn">
+            <span className="text-3xl mb-2 block">🧠</span>
+            <h3 className="font-bold text-[#04284b] text-base mb-1 font-serif">
+              Interactive Brain Region Exploration
+            </h3>
+            <p className="text-slate-600 text-xs md:text-sm">
+              Click any region button on the right to view its anatomical location and functional specialization.
+            </p>
           </div>
         )}
 
