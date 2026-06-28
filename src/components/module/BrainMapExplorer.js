@@ -235,7 +235,7 @@ export default function BrainMapExplorer({ onExploreComplete }) {
                   <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#04284b', margin: 0, fontFamily: 'var(--font-serif)' }}>
                     {selectedRegion.name}
                   </h3>
-                  <span style={{ fontSize: '0.75rem', fontWeight 800, color: selectedRegion.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
+                  <span style={{ fontSize: '0.75rem', fontWeight: 800, color: selectedRegion.color, textTransform: 'uppercase', letterSpacing: '0.06em' }}>
                     FUNCTIONAL ZONE DETAILS
                   </span>
                 </div>
