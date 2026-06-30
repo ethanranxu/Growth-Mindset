@@ -9,11 +9,11 @@ import { playClick } from '@/utils/audioEffects';
 const sections = [
   {
     title: 'Study Purpose',
-    content: 'This academic research project investigates how structured online learning interventions influence psychological mindsets, professional adaptation, and clinical experiences among early-career nurses. By exploring the mechanisms of learning mindsets, we aim to build a scientific evidence base for nursing education and student support programs.',
+    content: 'This study examines whether a brief online educational activity can influence nurses\' beliefs about learning and development, their understanding of work- related stress, and their confidence in coping with occupational challenges.',
   },
   {
     title: 'What Participation Involves',
-    content: 'You will be invited to complete brief baseline questionnaires and participate in a structured online learning activity lasting approximately 15 minutes. The entire session is estimated to take 20–30 minutes, which you can complete on your smartphone or computer at any convenient time and location.',
+    content: 'The full online pathway is expected to take approximately 40 - 50 minutes, which you can complete on your smartphone or computer at any convenient time and location.',
   },
   {
     title: 'Voluntary Participation',
@@ -74,18 +74,16 @@ export default function InformationPage() {
             return (
               <div key={index} className="flex flex-col items-center w-1/5 relative z-10">
                 <div
-                  className={`w-[54px] h-[54px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center font-bold text-xl md:text-2xl mb-2 shadow-sm ${
-                    isCurrent
-                      ? 'bg-[#006764] text-white border-2 border-white ring-4 ring-[#eaf4f0]'
-                      : 'bg-[#f4f6f8] text-[#04284b] border border-gray-200'
-                  }`}
+                  className={`w-[54px] h-[54px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center font-bold text-xl md:text-2xl mb-2 shadow-sm ${isCurrent
+                    ? 'bg-[#006764] text-white border-2 border-white ring-4 ring-[#eaf4f0]'
+                    : 'bg-[#f4f6f8] text-[#04284b] border border-gray-200'
+                    }`}
                 >
                   {step.num}
                 </div>
                 <span
-                  className={`text-xs md:text-sm font-semibold text-center ${
-                    isCurrent ? 'text-[#006764]' : 'text-[#04284b]'
-                  }`}
+                  className={`text-xs md:text-sm font-semibold text-center ${isCurrent ? 'text-[#006764]' : 'text-[#04284b]'
+                    }`}
                 >
                   {step.label}
                 </span>
@@ -96,7 +94,7 @@ export default function InformationPage() {
 
         {/* Content Cards */}
         <div className="max-w-4xl w-full flex flex-col space-y-6">
-          
+
           {/* Full PIS Banner Prompt */}
           <div className="bg-gradient-to-r from-[#f0f7f6] via-[#eaf4f0] to-[#f0f7f6] p-6 rounded-2xl border-2 border-[#99d6d3] shadow-2xs flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
@@ -104,7 +102,7 @@ export default function InformationPage() {
                 📄 Full Participant Information Sheet
               </h3>
               <p className="text-slate-600 text-xs md:text-sm leading-relaxed">
-                Want to read the complete 13-section research protocol, ethical statement, AWS data hosting details, and withdrawal rights?
+                Please read the Participant Information Sheet carefully before deciding whether to take part.
               </p>
             </div>
             <Link

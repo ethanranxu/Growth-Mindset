@@ -31,13 +31,12 @@ export default function ContactPage() {
   const router = useRouter();
   const participantId = getParticipantId();
   const [form, setForm] = useState({
-    preferred_name: '',
     email: '',
     consent_to_contact: false,
   });
   const [submitting, setSubmitting] = useState(false);
 
-  const isValid = Boolean(form.preferred_name.trim()) && Boolean(form.email.trim()) && form.consent_to_contact;
+  const isValid = Boolean(form.email.trim()) && form.consent_to_contact;
 
   const handleChange = (field, value) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -139,20 +138,6 @@ export default function ContactPage() {
 
             {/* Form Fields */}
             <div className="space-y-5">
-              {/* Preferred Name */}
-              <div>
-                <label className="block text-[#04284b] font-bold text-sm mb-1.5 flex items-center gap-1.5">
-                  <IconUser className="w-4 h-4 text-[#006764]" /> Preferred Name <span className="text-rose-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="How you would like us to address you"
-                  value={form.preferred_name}
-                  onChange={(e) => handleChange('preferred_name', e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-slate-300 text-slate-800 text-sm focus:outline-none focus:border-[#006764] focus:ring-1 focus:ring-[#006764] transition-all"
-                />
-              </div>
-
               {/* Email */}
               <div>
                 <label className="block text-[#04284b] font-bold text-sm mb-1.5 flex items-center gap-1.5">
@@ -168,7 +153,7 @@ export default function ContactPage() {
               </div>
 
               <p className="text-xs font-semibold text-slate-500 italic pt-1">
-                * Please provide both your preferred name and email address.
+                * Please provide your email address.
               </p>
             </div>
 

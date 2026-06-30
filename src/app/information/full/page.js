@@ -30,7 +30,7 @@ export default function FullPISPage() {
 
       {/* ===== MAIN CONTENT ===== */}
       <main className="flex-grow flex flex-col items-center pt-8 pb-20 px-4 md:px-8">
-        
+
         {/* Back Link & Top Bar */}
         <div className="max-w-4xl w-full mb-6 flex justify-between items-center">
           <Link
@@ -59,7 +59,7 @@ export default function FullPISPage() {
 
         {/* Full Document Container */}
         <div className="max-w-4xl w-full bg-white rounded-2xl p-8 md:p-12 border border-slate-200 shadow-sm text-slate-700 text-sm md:text-base leading-relaxed space-y-8">
-          
+
           {/* Intro Banner */}
           <div className="bg-[#f0f7f6] p-5 rounded-xl border-l-4 border-[#006764] text-[#04284b] font-medium text-sm md:text-base leading-relaxed">
             You are invited to take part in this research study. Please read this information carefully before deciding whether to participate. Taking part is voluntary and unpaid.
@@ -247,7 +247,7 @@ export default function FullPISPage() {
               13. Research Team &amp; Ethical Contacts
             </h2>
             <p>For questions about the study, please contact the student researcher or principal investigator:</p>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 bg-[#f8fafc] p-5 rounded-xl border border-slate-200 text-xs md:text-sm">
               <div>
                 <p className="font-bold text-[#04284b]">Student Researcher:</p>
@@ -268,7 +268,7 @@ export default function FullPISPage() {
             <div className="bg-[#f0f7f6] p-5 rounded-xl border border-[#99d6d3] text-xs md:text-sm space-y-1">
               <p className="font-bold text-[#006764]">Human Participants Ethics Committee Approval:</p>
               <p>For any queries regarding ethical concerns, you may contact the Chair, The University of Auckland Human Participants Ethics Committee, Office of Research Strategy and Integrity, The University of Auckland, Private Bag 92019, Auckland 1142. Telephone 09 373-7599 ext. 83711. Email: <a href="mailto:humanethics@auckland.ac.nz" className="underline font-semibold">humanethics@auckland.ac.nz</a></p>
-              <p className="pt-2 font-semibold text-[#04284b]">This project was approved by the University of Auckland Human Participants Ethics Committee on 01-07-2026. Reference Number: 01-07-2026.</p>
+              <p className="pt-2 font-semibold text-[#04284b]">This project was approved by the University of Auckland Human Participants Ethics Committee on **-**-2026. Reference Number: ABC***.</p>
             </div>
           </section>
 

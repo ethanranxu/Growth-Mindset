@@ -33,10 +33,80 @@ const IconXCircle = ({ className }) => (
 );
 
 const backgroundQuestions = [
-  { id: 'gender', label: 'Gender', options: ['Select your gender', 'Female', 'Male', 'Other / Prefer not to say'] },
-  { id: 'experience', label: 'Years of clinical nursing experience', options: ['Select your years of clinical experience', 'Less than 1 year', '1 to less than 2 years', '2 to less than 3 years', '3 to less than 4 years', '4 to 5 years'] },
-  { id: 'hospitalGrade', label: 'Grade of your current healthcare institution', options: ['Select your healthcare institution grade', 'Tertiary hospital (Grade 3)', 'Secondary hospital (Grade 2)', 'Primary hospital (Grade 1)', 'Other', 'Unsure'] },
-  { id: 'qualification', label: 'Highest educational qualification', options: ['Select your highest education', 'Secondary vocational school / Technical school', 'Junior college diploma', 'Bachelor\'s degree', 'Master\'s degree or above'] }
+  {
+    id: 'gender',
+    label: 'What is your gender?',
+    options: [
+      'Select your gender',
+      'Female',
+      'Male',
+      'Other / prefer to self-describe',
+      'Prefer not to answer'
+    ]
+  },
+  {
+    id: 'ageGroup',
+    label: 'What is your age group?',
+    options: [
+      'Select your age group',
+      '18-24',
+      '25-29',
+      '30-34',
+      '35 or above',
+      'Prefer not to answer'
+    ]
+  },
+  {
+    id: 'qualification',
+    label: 'What is your highest nursing-related education level?',
+    options: [
+      'Select your highest education level',
+      'Diploma/college',
+      'Bachelor',
+      'Master or above',
+      'Other',
+      'Prefer not to answer'
+    ]
+  },
+  {
+    id: 'experience',
+    label: 'How long have you worked in clinical nursing practice?',
+    options: [
+      'Select your years of practice',
+      'Less than 1 year',
+      '1 to less than 2 years',
+      '2 to less than 3 years',
+      '3 to less than 4 years',
+      '4 to 5 years'
+    ]
+  },
+  {
+    id: 'hospitalLevel',
+    label: 'What is the level of the hospital or health service where you mainly work?',
+    options: [
+      'Select your hospital level',
+      'Tertiary hospital',
+      'Secondary hospital',
+      'Primary/community health service',
+      'Other',
+      'Not sure',
+      'Prefer not to answer'
+    ]
+  },
+  {
+    id: 'workArea',
+    label: 'What is your main clinical work area?',
+    options: [
+      'Select your main clinical work area',
+      'Internal medicine-related',
+      'Surgical-related',
+      'Emergency/ICU/operating room',
+      'Specialty nursing-related',
+      'Aged care/rehabilitation/community/outpatient',
+      'Other',
+      'Prefer not to answer'
+    ]
+  }
 ];
 
 const cmisQuestions = [
@@ -393,7 +463,7 @@ export default function BaselinePage() {
                     const isFieldUnanswered = showErrorBanner && !answers[q.id];
                     return (
                       <div key={q.id}>
-                        <label className="block text-[#04284b] font-bold text-[14.5px] mb-2">{q.label}</label>
+                        <label className="block text-[#04284b] font-bold text-[14.5px] mb-2 sm:min-h-[44px]">{q.label}</label>
                         <select
                           className={`w-full border rounded-md py-2.5 px-3 text-[#04284b] text-sm focus:outline-none focus:border-[#006764] focus:ring-1 focus:ring-[#006764] appearance-none bg-white transition-colors ${
                             isFieldUnanswered ? 'border-red-300 bg-red-50/20' : 'border-gray-300'

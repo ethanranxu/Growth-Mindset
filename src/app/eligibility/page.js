@@ -44,13 +44,12 @@ const IconChevronRight = ({ className }) => (
 
 
 const screeningQuestions = [
-  { id: 'nurse', question: 'Are you a registered nurse?', eligibleAnswer: 'yes' },
-  { id: 'clinical', question: 'Are you currently working in clinical nursing in China?', eligibleAnswer: 'yes' },
-  { id: 'experience', question: 'Are you within your first five years of clinical work?', eligibleAnswer: 'yes' },
   { id: 'age', question: 'Are you aged 18 years or older?', eligibleAnswer: 'yes' },
-  { id: 'language', question: 'Are you able to read Chinese?', eligibleAnswer: 'yes' },
-  { id: 'not_previous', question: 'Have you not previously taken part in a structured Growth Mindset Intervention?', eligibleAnswer: 'yes' },
-  { id: 'not_participated', question: 'Have you not already participated in this study?', eligibleAnswer: 'yes' }
+  { id: 'nurse', question: 'Are you a registered nurse in China?', eligibleAnswer: 'yes' },
+  { id: 'clinical', question: 'Are you currently engaged in clinical nursing work in China?', eligibleAnswer: 'yes' },
+  { id: 'experience', question: 'Are you within the first five years of clinical nursing practice?', eligibleAnswer: 'yes' },
+  { id: 'language', question: 'Can you read Chinese and complete online study materials?', eligibleAnswer: 'yes' },
+  { id: 'previous_mindset', question: 'Have you previously completed a structured course, training workshop, online module, or formal intervention explicitly focused on growth mindset or growth-oriented beliefs?', eligibleAnswer: 'no' }
 ];
 
 const stepperSteps = [

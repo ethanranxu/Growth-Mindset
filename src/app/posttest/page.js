@@ -28,13 +28,6 @@ const IconChevronRight = ({ className }) => (
   </svg>
 );
 
-const backgroundQuestions = [
-  { id: 'gender', label: 'Gender', options: ['Select your gender', 'Female', 'Male', 'Other / Prefer not to say'] },
-  { id: 'experience', label: 'Years of clinical nursing experience', options: ['Select your years of clinical experience', 'Less than 1 year', '1 to less than 2 years', '2 to less than 3 years', '3 to less than 4 years', '4 to 5 years'] },
-  { id: 'hospitalGrade', label: 'Grade of your current healthcare institution', options: ['Select your healthcare institution grade', 'Tertiary hospital (Grade 3)', 'Secondary hospital (Grade 2)', 'Primary hospital (Grade 1)', 'Other', 'Unsure'] },
-  { id: 'qualification', label: 'Highest educational qualification', options: ['Select your highest education', 'Secondary vocational school / Technical school', 'Junior college diploma', 'Bachelor\'s degree', 'Master\'s degree or above'] }
-];
-
 const cmisQuestions = [
   "My intelligence level is fixed, and I can hardly change it.",
   "My intelligence is my basic characteristic, and I can hardly change it.",
@@ -68,12 +61,7 @@ const copingEfficacyQuestions = [
 ];
 
 const getPresetAnswers = () => {
-  const ans = {
-    gender: 'Female',
-    experience: '1 to less than 2 years',
-    hospitalGrade: 'Tertiary hospital (Grade 3)',
-    qualification: "Bachelor's degree",
-  };
+  const ans = {};
   cmisQuestions.forEach((_, i) => { ans[`section2_${i}`] = 4; });
   stressMindsetQuestions.forEach((_, i) => { ans[`section3_${i}`] = 4; });
   copingEfficacyQuestions.forEach((_, i) => { ans[`section4_${i}`] = 4; });
@@ -91,7 +79,7 @@ export default function PostTestPage() {
   const [submitting, setSubmitting] = useState(false);
   const [startedAt] = useState(new Date().toISOString());
 
-  const totalQuestions = backgroundQuestions.length + cmisQuestions.length + stressMindsetQuestions.length + copingEfficacyQuestions.length;
+  const totalQuestions = cmisQuestions.length + stressMindsetQuestions.length + copingEfficacyQuestions.length;
   const answeredCount = Object.values(answers).filter(val => val !== undefined && val !== '').length;
   const progressPercent = Math.round((answeredCount / totalQuestions) * 100);
 
@@ -146,7 +134,7 @@ export default function PostTestPage() {
     }
   };
 
-  const renderLikertTable = (sectionId, subtitle, questions, customHeaders = null) => {
+  const renderLikertTable = (sectionId, displayNum, subtitle, questions, customHeaders = null) => {
     const headers = customHeaders || [
       <>Strongly<br />disagree</>,
       <>Disagree</>,
@@ -158,7 +146,7 @@ export default function PostTestPage() {
       <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 w-full">
         <div className="flex items-center mb-6">
           <h2 className="text-[#04284b] text-2xl font-bold font-serif">
-            {sectionId}. {subtitle}
+            {displayNum}. {subtitle}
           </h2>
         </div>
 
@@ -302,36 +290,8 @@ export default function PostTestPage() {
                 </div>
               </div>
             </div>
-
-            {/* Section 1: Background */}
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-8 w-full">
-              <div className="flex items-center mb-8">
-                <h2 className="text-[#04284b] text-2xl font-bold font-serif">
-                  1. Background
-                </h2>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6">
-                {backgroundQuestions.map((q) => (
-                  <div key={q.id}>
-                    <label className="block text-[#04284b] font-bold text-[14.5px] mb-2">{q.label}</label>
-                    <select
-                      className="w-full border border-gray-300 rounded-md py-2.5 px-3 text-[#04284b] text-sm focus:outline-none focus:border-[#006764] focus:ring-1 focus:ring-[#006764] appearance-none bg-white"
-                      onChange={(e) => handleSelect(q.id, e.target.value)}
-                      value={answers[q.id] || ''}
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236B7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: 'right 0.75rem center', backgroundRepeat: 'no-repeat', backgroundSize: '1rem' }}
-                    >
-                      {q.options.map((opt, i) => (
-                        <option key={i} value={i === 0 ? '' : opt} disabled={i === 0}>{opt}</option>
-                      ))}
-                    </select>
-                  </div>
-                ))}
-              </div>
-            </div>
-
             {/* Render Likert Scales */}
-            {renderLikertTable(2, 'Chinese Mindsets of Intelligence Scale', cmisQuestions, [
+            {renderLikertTable(2, 1, 'Chinese Mindsets of Intelligence Scale', cmisQuestions, [
               <>Strongly<br />disagree</>,
               <>Disagree</>,
               <>Slightly<br />disagree</>,
@@ -339,8 +299,8 @@ export default function PostTestPage() {
               <>Agree</>,
               <>Strongly<br />agree</>
             ])}
-            {renderLikertTable(3, 'Chinese Stress Mindset Measure', stressMindsetQuestions)}
-            {renderLikertTable(4, 'Chinese Occupational Coping Self-Efficacy Scale for Nurses', copingEfficacyQuestions, [
+            {renderLikertTable(3, 2, 'Chinese Stress Mindset Measure', stressMindsetQuestions)}
+            {renderLikertTable(4, 3, 'Chinese Occupational Coping Self-Efficacy Scale for Nurses', copingEfficacyQuestions, [
               <>Cannot cope<br />easily</>,
               <>Hardly cope<br />easily</>,
               <>Neutral</>,

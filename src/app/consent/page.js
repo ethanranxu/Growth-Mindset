@@ -120,18 +120,16 @@ export default function ConsentPage() {
             return (
               <div key={index} className="flex flex-col items-center w-1/5 relative z-10">
                 <div
-                  className={`w-[54px] h-[54px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center font-bold text-xl md:text-2xl mb-2 shadow-sm ${
-                    isCurrent
+                  className={`w-[54px] h-[54px] md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center font-bold text-xl md:text-2xl mb-2 shadow-sm ${isCurrent
                       ? 'bg-[#006764] text-white border-2 border-white ring-4 ring-[#eaf4f0]'
                       : 'bg-[#f4f6f8] text-[#04284b] border border-gray-200'
-                  }`}
+                    }`}
                 >
                   {step.num}
                 </div>
                 <span
-                  className={`text-xs md:text-sm font-semibold text-center ${
-                    isCurrent ? 'text-[#006764]' : 'text-[#04284b]'
-                  }`}
+                  className={`text-xs md:text-sm font-semibold text-center ${isCurrent ? 'text-[#006764]' : 'text-[#04284b]'
+                    }`}
                 >
                   {step.label}
                 </span>
@@ -142,7 +140,7 @@ export default function ConsentPage() {
 
         {/* Content Container */}
         <div className="max-w-4xl w-full flex flex-col space-y-8">
-          
+
           {/* Full PIS Prompt */}
           <div className="bg-[#f0f7f6] p-5 rounded-2xl border border-[#99d6d3] flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
@@ -207,18 +205,16 @@ export default function ConsentPage() {
               {/* Option 1: Consent */}
               <div
                 onClick={() => handleSelectOption('consent')}
-                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-4 relative overflow-hidden ${
-                  selectedOption === 'consent'
+                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-4 relative overflow-hidden ${selectedOption === 'consent'
                     ? 'bg-[#f0f7f6] border-[#006764] ring-4 ring-[#eaf4f0] shadow-md'
                     : 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs'
-                }`}
+                  }`}
               >
                 <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
-                    selectedOption === 'consent'
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${selectedOption === 'consent'
                       ? 'border-[#006764] bg-[#006764] text-white'
                       : 'border-slate-400 bg-white'
-                  }`}
+                    }`}
                 >
                   {selectedOption === 'consent' && <IconCheck className="w-4 h-4" />}
                 </div>
@@ -235,18 +231,16 @@ export default function ConsentPage() {
               {/* Option 2: Do not consent */}
               <div
                 onClick={() => handleSelectOption('noconsent')}
-                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-4 relative overflow-hidden ${
-                  selectedOption === 'noconsent'
+                className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex items-start gap-4 relative overflow-hidden ${selectedOption === 'noconsent'
                     ? 'bg-slate-50 border-slate-700 ring-4 ring-slate-100 shadow-md'
                     : 'bg-white border-slate-200 hover:border-slate-300 shadow-2xs'
-                }`}
+                  }`}
               >
                 <div
-                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${
-                    selectedOption === 'noconsent'
+                  className={`w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all ${selectedOption === 'noconsent'
                       ? 'border-slate-700 bg-slate-700 text-white'
                       : 'border-slate-400 bg-white'
-                  }`}
+                    }`}
                 >
                   {selectedOption === 'noconsent' && <IconX className="w-4 h-4" />}
                 </div>
@@ -266,11 +260,10 @@ export default function ConsentPage() {
               <button
                 onClick={handleSubmit}
                 disabled={!selectedOption || submitting}
-                className={`w-full sm:w-auto px-12 py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-md ${
-                  selectedOption
+                className={`w-full sm:w-auto px-12 py-4 rounded-xl font-bold text-base md:text-lg transition-all shadow-md ${selectedOption
                     ? 'bg-[#006764] hover:bg-[#005250] text-white cursor-pointer hover:shadow-lg'
                     : 'bg-slate-200 text-slate-400 cursor-not-allowed shadow-none'
-                }`}
+                  }`}
               >
                 {submitting ? 'Processing...' : 'Submit & Proceed →'}
               </button>
@@ -280,8 +273,8 @@ export default function ConsentPage() {
           {/* Institutional Ethics Clearance Card */}
           <div className="bg-gradient-to-r from-[#f8fafc] to-[#f1f5f9] rounded-2xl p-6 border border-slate-300 text-center shadow-2xs">
             <p className="text-xs md:text-sm font-semibold text-[#04284b] leading-relaxed">
-              Approved by the relevant University of Auckland ethics committee on 01-07-2026. <br className="hidden sm:inline" />
-              <span className="text-[#006764]">Reference Number: ABC-123456.</span>
+              Approved by the relevant University of Auckland ethics committee on **-**-2026. <br className="hidden sm:inline" />
+              <span className="text-[#006764]">Reference Number: ABC***.</span>
             </p>
           </div>
 

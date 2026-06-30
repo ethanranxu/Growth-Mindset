@@ -42,6 +42,8 @@ const IconShieldCheck = ({ className }) => (
 export default function DebriefPage() {
   const router = useRouter();
   const participantId = getParticipantId();
+  const allocation = typeof window !== 'undefined' ? localStorage.getItem(`gm_allocation_${participantId}`) : null;
+  const isIntervention = allocation !== 'control';
 
   const handleContact = () => {
     playClick();
@@ -163,35 +165,46 @@ export default function DebriefPage() {
               </div>
             </div>
 
-            {/* Card 4: Optional Follow-up Interview Invitation */}
-            <div className="bg-gradient-to-br from-[#f0f7f6] to-[#e0f2f1] rounded-2xl p-7 border-2 border-[#99d6d3] shadow-sm">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-white text-[#006764] flex items-center justify-center shrink-0 shadow-xs">
-                  <IconMail className="w-5 h-5" />
+            {isIntervention ? (
+              /* Card 4: Optional Follow-up Interview Invitation */
+              <div className="bg-gradient-to-br from-[#f0f7f6] to-[#e0f2f1] rounded-2xl p-7 border-2 border-[#99d6d3] shadow-sm">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-white text-[#006764] flex items-center justify-center shrink-0 shadow-xs">
+                    <IconMail className="w-5 h-5" />
+                  </div>
+                  <h3 className="text-[#006764] text-xl font-bold font-serif">
+                    Optional Follow-up Interview Invitation
+                  </h3>
                 </div>
-                <h3 className="text-[#006764] text-xl font-bold font-serif">
-                  Optional Follow-up Interview Invitation
-                </h3>
-              </div>
-              <p className="text-[#04284b] text-sm md:text-base leading-relaxed font-medium mb-6">
-                We are currently recruiting a small group of participants for brief, individual follow-up interviews (approx. 20-30 minutes) to share deeper insights on their learning experience. If you are interested in sharing your views, please click the button below to provide your preferred contact information.
-              </p>
+                <p className="text-[#04284b] text-sm md:text-base leading-relaxed font-medium mb-6">
+                  We are currently recruiting a small group of participants for brief, individual follow-up interviews (approx. 20-30 minutes) to share deeper insights on their learning experience. If you are interested in sharing your views, please click the button below to provide your preferred contact information.
+                </p>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={handleContact}
-                  className="flex-1 px-6 py-3.5 rounded-xl bg-[#006764] hover:bg-[#005250] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg text-center cursor-pointer"
-                >
-                  Yes, I am willing to participate in a follow-up interview
-                </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={handleContact}
+                    className="flex-1 px-6 py-3.5 rounded-xl bg-[#006764] hover:bg-[#005250] text-white font-bold text-sm md:text-base transition-all shadow-md hover:shadow-lg text-center cursor-pointer"
+                  >
+                    Yes, I am willing to participate in a follow-up interview
+                  </button>
+                  <button
+                    onClick={handleFinish}
+                    className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-sm transition-all text-center cursor-pointer"
+                  >
+                    Complete Study without leaving contact info
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex justify-end pt-4">
                 <button
                   onClick={handleFinish}
-                  className="px-6 py-3.5 rounded-xl bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 font-semibold text-sm transition-all text-center cursor-pointer"
+                  className="w-full sm:w-auto px-12 py-4 rounded-xl bg-[#006764] hover:bg-[#005250] text-white font-bold text-base md:text-lg transition-all shadow-md hover:shadow-lg text-center cursor-pointer"
                 >
-                  Complete Study without leaving contact info
+                  Complete Study &amp; Submit →
                 </button>
               </div>
-            </div>
+            )}
           </div>
         </main>
 

@@ -163,7 +163,7 @@ export default function LandingPage() {
               A University of Auckland research study
             </h2>
             <p className="max-w-2xl mx-auto text-gray-700 text-lg md:text-xl mb-8 leading-relaxed animate-fadeIn" style={{ animationDelay: '200ms' }}>
-              Explore your mindset, discover your potential, and contribute to psychological research in this brief, confidential online study.
+
             </p>
 
             {/* Button */}
