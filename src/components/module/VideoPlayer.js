@@ -201,12 +201,6 @@ export default function VideoPlayer({ src, onComplete, isCompleted = false }) {
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Warning indicator */}
-            <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-full border border-slate-700/50">
-              Seek Disabled
-            </span>
-          </div>
         </div>
       </div>
     </div>
