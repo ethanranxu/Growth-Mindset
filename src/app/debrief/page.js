@@ -133,7 +133,7 @@ export default function DebriefPage() {
               <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-2">
                 <div className="flex items-start gap-2">
                   <span className="text-[#006764] font-bold">•</span>
-                  <span><strong>Hospital Counseling Services:</strong> Contact your institution&apos;s Employee Assistance Program (EAP) or staff psychological counseling center for confidential support.</span>
+                  <span><strong>Psychological Support:</strong> You may contact local psychological support services or call 12356 for psychological support where available.</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="text-[#006764] font-bold">•</span>

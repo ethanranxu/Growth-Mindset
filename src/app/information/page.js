@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: 'Potential Risks & Support Resources',
-    content: 'The questionnaires and learning content are designed to be safe and non-invasive. However, if reflecting on work experiences causes any discomfort, you may pause or withdraw at any time. Free and confidential support is available through your institution employee assistance program or local counseling services.',
+    content: 'The questionnaires and learning content are designed to be safe and non-invasive. However, if reflecting on work experiences causes any discomfort, you may pause or withdraw at any time. If you would like psychological support, you may contact local support services; in mainland China, you may call 12356 for psychological support where available.',
   },
   {
     title: 'Withdrawal & Data Deletion',
