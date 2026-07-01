@@ -11,6 +11,7 @@ import AudioNarrator from '@/components/module/AudioNarrator';
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import ModuleStepper from '@/components/module/ModuleStepper';
+import VideoPlayer from '@/components/module/VideoPlayer';
 import { getParticipantId, setFlowState } from '@/lib/session';
 import { playClick, playSuccess, playApplause } from '@/utils/audioEffects';
 
@@ -28,22 +29,9 @@ const SCENES = [
       'Brain functions are rarely performed by a single structure in isolation. Instead, multiple regions and interconnected networks work together simultaneously. Let us examine neutral daily examples and science myth discussions.',
   },
   {
-    id: 'example1',
+    id: 'examples-video',
     pose: 'confident',
-    narration:
-      'Example 1: Reading text and understanding its meaning. Visual information is first processed in the occipital lobe, then integrated with language and memory systems in the temporal and frontal lobes.',
-  },
-  {
-    id: 'example2',
-    pose: 'speaking',
-    narration:
-      'Example 2: Turning your head toward a ringing sound. This everyday action involves processing auditory information, shifting attention, calculating spatial localization, and coordinating motor control.',
-  },
-  {
-    id: 'example3-myth',
-    pose: 'uncertain',
-    narration:
-      'Example 3: Debunking the 10% brain myth. A common misconception states that humans only use 10% of their brain capacity. In reality, daily activities activate numerous brain regions and neural networks across different times.',
+    narration: 'Let us watch a video explaining three everyday brain examples and myth discussions, and then complete the knowledge checks below.',
   },
   {
     id: 'summary',
@@ -131,6 +119,9 @@ export default function ControlModule3Page() {
   const [quiz2Completed, setQuiz2Completed] = useState(false);
   const [quiz3Completed, setQuiz3Completed] = useState(false);
 
+  // Video completion state
+  const [videoCompleted, setVideoCompleted] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -147,12 +138,8 @@ export default function ControlModule3Page() {
 
   const canProceed = () => {
     switch (currentScene.id) {
-      case 'example1':
-        return quiz1Completed;
-      case 'example2':
-        return quiz2Completed;
-      case 'example3-myth':
-        return quiz3Completed;
+      case 'examples-video':
+        return videoCompleted && quiz1Completed && quiz2Completed && quiz3Completed;
       default:
         return typingDone;
     }
@@ -174,6 +161,7 @@ export default function ControlModule3Page() {
             started_at: startedAt,
             engagement_data: {
               scenes_viewed: TOTAL_SCENES,
+              video_completed: videoCompleted,
               quiz1_completed: quiz1Completed,
               quiz2_completed: quiz2Completed,
               quiz3_completed: quiz3Completed,
@@ -260,12 +248,13 @@ export default function ControlModule3Page() {
     </div>
   );
 
-  const renderExample1 = () => (
+  const renderExamplesVideo = () => (
     <div className="animate-fadeIn w-full max-w-4xl mx-auto flex flex-col gap-6">
+      {/* Intro/Header */}
       <div className="flex flex-col md:flex-row items-center gap-6">
-        <NurseCharacter pose="confident" size={260} />
+        <TeacherCharacter pose="speaking" size={200} />
         <div className="flex-1">
-          <h2 style={STYLES.h2}>Example 1: Reading &amp; Understanding Text</h2>
+          <h2 style={STYLES.h2}>Module 3: Coordinated Brain Networks</h2>
           <SpeechBubble
             text={currentScene.narration}
             typing={!typingDone}
@@ -275,21 +264,41 @@ export default function ControlModule3Page() {
         </div>
       </div>
 
-      <div style={{ padding: '22px 26px', borderRadius: '18px', backgroundColor: '#ffffff', border: '2px solid #2563eb', boxShadow: '0 4px 16px rgba(37,99,235,0.08)' }}>
-        <div className="flex items-center gap-3 mb-3 border-b pb-3 border-slate-100">
-          <span style={{ fontSize: '1.8rem' }}>📖</span>
-          <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#1e3a8a', margin: 0, fontFamily: 'var(--font-serif)' }}>
-              Reading Text &amp; Meaning Comprehension
-            </h3>
-            <span style={{ fontSize: '0.75rem', color: '#2563eb', fontWeight: 700 }}>MULTI-NETWORK INTEGRATION</span>
-          </div>
+      {/* Video Card */}
+      <div
+        style={{
+          width: '100%',
+          padding: '24px 28px',
+          borderRadius: '16px',
+          backgroundColor: '#ffffff',
+          border: '2px solid #006764',
+          boxShadow: '0 4px 16px rgba(0, 103, 100, 0.08)',
+        }}
+      >
+        <div className="flex items-center gap-2 mb-4 border-b pb-3 border-slate-100">
+          <span style={{ fontSize: '1.3rem' }}>🎬</span>
+          <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#006764', letterSpacing: '0.05em' }}>
+            BRAIN NETWORKS & MYTHS (VIDEO)
+          </span>
         </div>
-        <p style={{ fontSize: '1rem', color: '#1e293b', lineHeight: 1.7, marginBottom: '16px' }}>
-          Visual information must first be processed in the occipital lobe, subsequently engaging language and memory systems to comprehend the meaning. This demonstrates that even a familiar daily activity involves multiple brain functional networks.
-        </p>
+        <div className="w-full mt-4">
+          <VideoPlayer 
+            src="/Video/B1.mp4" 
+            onComplete={() => setVideoCompleted(true)} 
+            isCompleted={videoCompleted} 
+          />
+        </div>
+      </div>
 
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
+      {/* Quiz Section */}
+      <div className="flex flex-col gap-6">
+        
+        {/* Quiz 1 */}
+        <div className="w-full bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="px-3 py-1 rounded-full text-xs font-bold text-teal-700 bg-teal-50 border border-teal-200">Knowledge Check 1</span>
+            <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Reading comprehension</span>
+          </div>
           <KnowledgeCheck
             question={QUIZ1_QUESTION}
             options={QUIZ1_OPTIONS}
@@ -299,40 +308,13 @@ export default function ControlModule3Page() {
             onComplete={() => setQuiz1Completed(true)}
           />
         </div>
-      </div>
-    </div>
-  );
 
-  const renderExample2 = () => (
-    <div className="animate-fadeIn w-full max-w-4xl mx-auto flex flex-col gap-6">
-      <div className="flex flex-col md:flex-row items-center gap-6">
-        <TeacherCharacter pose="speaking" size={260} />
-        <div className="flex-1">
-          <h2 style={STYLES.h2}>Example 2: Orienting to a Sound</h2>
-          <SpeechBubble
-            text={currentScene.narration}
-            typing={!typingDone}
-            onComplete={handleTypingComplete}
-            tailSide="left"
-          />
-        </div>
-      </div>
-
-      <div style={{ padding: '22px 26px', borderRadius: '18px', backgroundColor: '#ffffff', border: '2px solid #059669', boxShadow: '0 4px 16px rgba(5,150,105,0.08)' }}>
-        <div className="flex items-center gap-3 mb-3 border-b pb-3 border-slate-100">
-          <span style={{ fontSize: '1.8rem' }}>🔔</span>
-          <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#064e3b', margin: 0, fontFamily: 'var(--font-serif)' }}>
-              Hearing a Ringing Bell &amp; Turning Toward Sound
-            </h3>
-            <span style={{ fontSize: '0.75rem', color: '#059669', fontWeight: 700 }}>SENSORY-MOTOR ORIENTING REFLEX</span>
+        {/* Quiz 2 */}
+        <div className="w-full bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="px-3 py-1 rounded-full text-xs font-bold text-teal-700 bg-teal-50 border border-teal-200">Knowledge Check 2</span>
+            <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Sensory orienting</span>
           </div>
-        </div>
-        <p style={{ fontSize: '1rem', color: '#1e293b', lineHeight: 1.7, marginBottom: '16px' }}>
-          Hearing a ringing sound and turning your head toward its source involves auditory information processing, attentional shifting, spatial localization, and motor control.
-        </p>
-
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
           <KnowledgeCheck
             question={QUIZ2_QUESTION}
             options={QUIZ2_OPTIONS}
@@ -342,40 +324,13 @@ export default function ControlModule3Page() {
             onComplete={() => setQuiz2Completed(true)}
           />
         </div>
-      </div>
-    </div>
-  );
 
-  const renderExample3 = () => (
-    <div className="animate-fadeIn w-full max-w-4xl mx-auto flex flex-col gap-6">
-      <div className="flex flex-col md:flex-row items-center gap-6">
-        <NurseCharacter pose="uncertain" size={260} />
-        <div className="flex-1">
-          <h2 style={STYLES.h2}>Example 3: Debunking the 10% Brain Myth</h2>
-          <SpeechBubble
-            text={currentScene.narration}
-            typing={!typingDone}
-            onComplete={handleTypingComplete}
-            tailSide="left"
-          />
-        </div>
-      </div>
-
-      <div style={{ padding: '22px 26px', borderRadius: '18px', backgroundColor: '#ffffff', border: '2px solid #d97706', boxShadow: '0 4px 16px rgba(217,119,6,0.08)' }}>
-        <div className="flex items-center gap-3 mb-3 border-b pb-3 border-slate-100">
-          <span style={{ fontSize: '1.8rem' }}>💡</span>
-          <div>
-            <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: '#78350f', margin: 0, fontFamily: 'var(--font-serif)' }}>
-              Brain Capacity &amp; Network Activation Myth-Busting
-            </h3>
-            <span style={{ fontSize: '0.75rem', color: '#d97706', fontWeight: 700 }}>NEUROSCIENTIFIC EVIDENCE</span>
+        {/* Quiz 3 */}
+        <div className="w-full bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="px-3 py-1 rounded-full text-xs font-bold text-teal-700 bg-teal-50 border border-teal-200">Knowledge Check 3</span>
+            <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Debunking myths</span>
           </div>
-        </div>
-        <p style={{ fontSize: '1rem', color: '#1e293b', lineHeight: 1.7, marginBottom: '16px' }}>
-          A common misconception suggests that humans only use 10% of their brain. In reality, daily activities recruit numerous brain regions and networks across different times. Active regions vary depending on the task, but the brain does not simply possess a large &quot;unused&quot; area.
-        </p>
-
-        <div className="bg-slate-50 p-4 rounded-xl border border-slate-200">
           <KnowledgeCheck
             question={QUIZ3_QUESTION}
             options={QUIZ3_OPTIONS}
@@ -385,6 +340,7 @@ export default function ControlModule3Page() {
             onComplete={() => setQuiz3Completed(true)}
           />
         </div>
+
       </div>
     </div>
   );
@@ -415,9 +371,7 @@ export default function ControlModule3Page() {
   const SCENE_RENDERERS = [
     renderWelcome,
     renderIntro,
-    renderExample1,
-    renderExample2,
-    renderExample3,
+    renderExamplesVideo,
     renderSummary,
   ];
 
@@ -499,13 +453,13 @@ export default function ControlModule3Page() {
         {!canProceed() && (
           <div className="w-full max-w-4xl mt-3">
             <p style={{ fontSize: '0.8rem', color: '#f59e0b', textAlign: 'center', fontWeight: 600 }}>
-              {currentScene.id === 'example1' && !quiz1Completed
-                ? '⚡ Please answer the question correctly to continue.'
-                : currentScene.id === 'example2' && !quiz2Completed
-                  ? '⚡ Please answer the question correctly to continue.'
-                  : currentScene.id === 'example3-myth' && !quiz3Completed
-                    ? '⚡ Please answer the question correctly to continue.'
-                    : ''}
+              {currentScene.id === 'examples-video' && (
+                !videoCompleted
+                  ? '⚡ Please watch the video to the end to continue.'
+                  : (!quiz1Completed || !quiz2Completed || !quiz3Completed)
+                    ? '⚡ Please answer all questions correctly to continue.'
+                    : ''
+              )}
             </p>
           </div>
         )}

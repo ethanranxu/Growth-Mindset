@@ -13,6 +13,7 @@ import { playClick, playSuccess, playError, playApplause } from '@/utils/audioEf
 import AppHeader from '@/components/AppHeader';
 import AppFooter from '@/components/AppFooter';
 import ModuleStepper from '@/components/module/ModuleStepper';
+import VideoPlayer from '@/components/module/VideoPlayer';
 
 /* ================================================================
    Scene content — Module 3: Peer Stories
@@ -143,6 +144,11 @@ export default function Module3Page() {
   const [quiz3Completed, setQuiz3Completed] = useState(false);
   const [quiz3Data, setQuiz3Data] = useState(null);
 
+  // Video completion states
+  const [video1Completed, setVideo1Completed] = useState(false);
+  const [video2Completed, setVideo2Completed] = useState(false);
+  const [video3Completed, setVideo3Completed] = useState(false);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -160,11 +166,11 @@ export default function Module3Page() {
   const canProceed = () => {
     switch (currentScene.id) {
       case 'story1':
-        return quiz1Completed;
+        return video1Completed && quiz1Completed;
       case 'story2':
-        return quiz2Completed;
+        return video2Completed && quiz2Completed;
       case 'story3':
-        return quiz3Completed;
+        return video3Completed && quiz3Completed;
       case 'summary':
         return true;
       default:
@@ -188,6 +194,9 @@ export default function Module3Page() {
             started_at: startedAt,
             engagement_data: {
               scenes_viewed: TOTAL_SCENES,
+              video1_completed: video1Completed,
+              video2_completed: video2Completed,
+              video3_completed: video3Completed,
               quiz1_answer: quiz1Data?.selectedId,
               quiz1_correct: quiz1Data?.wasCorrect,
               quiz1_attempts: quiz1Data?.attempts,
@@ -265,6 +274,49 @@ export default function Module3Page() {
     </div>
   );
 
+  const renderStoryVideoCard = (title, videoSrc, label, character, onComplete, isCompleted) => (
+    <div
+      style={{
+        width: '100%',
+        padding: '24px 28px',
+        borderRadius: '16px',
+        backgroundColor: '#ffffff',
+        border: '2px solid #006764',
+        boxShadow: '0 4px 16px rgba(0, 103, 100, 0.08)',
+        position: 'relative',
+        overflow: 'visible',
+      }}
+      className="animate-fadeIn"
+    >
+      {character && (
+        <div style={{
+          position: 'absolute',
+          right: '24px',
+          top: '-45px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '2px',
+          zIndex: 10,
+        }}>
+          {character}
+        </div>
+      )}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', borderBottom: '1.5px dashed #cbd5e1', paddingBottom: '12px', marginRight: character ? '110px' : '0' }}>
+        <span style={{ fontSize: '1.3rem' }}>🎬</span>
+        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#006764', letterSpacing: '0.05em' }}>
+          {label}
+        </span>
+      </div>
+      <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#04284b', marginBottom: '12px', fontFamily: 'var(--font-serif)', marginRight: character ? '110px' : '0' }}>
+        {title}
+      </h3>
+      <div className="w-full mt-4">
+        <VideoPlayer src={videoSrc} onComplete={onComplete} isCompleted={isCompleted} />
+      </div>
+    </div>
+  );
+
   /* =============== Scene renderers =============== */
 
   const renderWelcome = () => (
@@ -302,17 +354,19 @@ export default function Module3Page() {
 
   const renderStory1 = () => (
     <div className="flex flex-col gap-6 animate-fadeIn w-full max-w-3xl mx-auto" style={{ paddingTop: '25px' }}>
-      {/* Story Card at full row width */}
-      {renderStoryCard(
+      {/* Story Card at full row width with video */}
+      {renderStoryVideoCard(
         "Story 1: After Being Corrected",
-        "When I first started working, my preceptor pointed out that my handover information was incomplete. I felt awful and started doubting whether I was detail-oriented enough. Later, I reframed this incident as a specific learning point: I needed a more robust handover framework. I asked my colleagues for advice, put together a small checklist, and gradually felt that my handovers became much more organized.",
-        "PEER REFLECTION",
+        "/Video/A1.mp4",
+        "PEER REFLECTION (VIDEO)",
         <>
           <NurseCharacter pose={quiz1Completed ? 'celebrating' : 'uncertain'} size={145} />
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', backgroundColor: 'white', padding: '2px 8px', borderRadius: '9999px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', marginTop: '-8px', zIndex: 5 }}>
             Peer Nurse
           </span>
-        </>
+        </>,
+        () => setVideo1Completed(true),
+        video1Completed
       )}
 
       {/* Bottom: Knowledge Check */}
@@ -338,17 +392,19 @@ export default function Module3Page() {
 
   const renderStory2 = () => (
     <div className="flex flex-col gap-6 animate-fadeIn w-full max-w-3xl mx-auto" style={{ paddingTop: '25px' }}>
-      {/* Story Card at full row width */}
-      {renderStoryCard(
+      {/* Story Card at full row width with video */}
+      {renderStoryVideoCard(
         "Story 2: An Unfamiliar Procedure",
-        "The first time I had to perform an unfamiliar clinical procedure independently, I panicked and worried that others would think I was incompetent. Later, I reminded myself: being unfamiliar is not a sign of fixed inability; it just means I need to learn the steps, verify key parts, and ask for help when necessary. Once I shifted my thinking, I became more willing to prepare questions in advance and felt more confident verifying things I was unsure about.",
-        "PEER REFLECTION",
+        "/Video/A2.mp4",
+        "PEER REFLECTION (VIDEO)",
         <>
           <NurseCharacter pose={quiz2Completed ? 'celebrating' : 'uncertain'} size={145} />
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', backgroundColor: 'white', padding: '2px 8px', borderRadius: '9999px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', marginTop: '-8px', zIndex: 5 }}>
             Peer Nurse
           </span>
-        </>
+        </>,
+        () => setVideo2Completed(true),
+        video2Completed
       )}
 
       {/* Bottom: Knowledge Check */}
@@ -374,17 +430,19 @@ export default function Module3Page() {
 
   const renderStory3 = () => (
     <div className="flex flex-col gap-6 animate-fadeIn w-full max-w-3xl mx-auto" style={{ paddingTop: '25px' }}>
-      {/* Story Card at full row width */}
-      {renderStoryCard(
+      {/* Story Card at full row width with video */}
+      {renderStoryVideoCard(
         "Story 3: Pressure in a Busy Shift",
-        "Sometimes when a shift gets extremely busy, I feel overwhelmed by the pressure. In the past, I would immediately think, 'Am I just not cut out for this?' Later, I learned to distinguish between different sources of stress: some pressures stem from the work environment and workload, while others are areas I can gradually improve through practice, communication, or seeking support. This doesn't make the pressure disappear, but it helps me identify a concrete next step.",
-        "PEER REFLECTION",
+        "/Video/A3.mp4",
+        "PEER REFLECTION (VIDEO)",
         <>
           <NurseCharacter pose={quiz3Completed ? 'celebrating' : 'anxious'} size={145} />
           <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748b', backgroundColor: 'white', padding: '2px 8px', borderRadius: '9999px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)', marginTop: '-8px', zIndex: 5 }}>
             Peer Nurse
           </span>
-        </>
+        </>,
+        () => setVideo3Completed(true),
+        video3Completed
       )}
 
       {/* Bottom: Knowledge Check */}
@@ -537,9 +595,9 @@ export default function Module3Page() {
         {!canProceed() && (
           <div className="w-full max-w-4xl mt-3">
             <p style={{ fontSize: '0.8rem', color: '#f59e0b', textAlign: 'center', fontWeight: 600 }}>
-              {currentScene.id === 'story1' || currentScene.id === 'story2' || currentScene.id === 'story3'
-                ? '⚡ Please answer the question correctly to continue.'
-                : ''}
+              {currentScene.id === 'story1' && (!video1Completed ? '⚡ Please watch the video to the end to continue.' : !quiz1Completed ? '⚡ Please answer the question correctly to continue.' : '')}
+              {currentScene.id === 'story2' && (!video2Completed ? '⚡ Please watch the video to the end to continue.' : !quiz2Completed ? '⚡ Please answer the question correctly to continue.' : '')}
+              {currentScene.id === 'story3' && (!video3Completed ? '⚡ Please watch the video to the end to continue.' : !quiz3Completed ? '⚡ Please answer the question correctly to continue.' : '')}
             </p>
           </div>
         )}
