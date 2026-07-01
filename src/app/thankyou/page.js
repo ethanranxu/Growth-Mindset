@@ -139,7 +139,7 @@ export default function ThankYouPage() {
             <div className="text-sm text-slate-700 space-y-2 leading-relaxed bg-slate-50 p-4 rounded-xl border border-slate-200">
               <p className="flex items-center gap-2">
                 <IconMail className="w-4 h-4 text-[#006764] shrink-0" />
-                <span><strong>Principal Investigator:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] hover:underline font-semibold">ajhz590@aucklanduni.ac.nz</a>)</span>
+                <span><strong>Student Investigator:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] hover:underline font-semibold">ajhz590@aucklanduni.ac.nz</a>)</span>
               </p>
               <p className="flex items-center gap-2">
                 <IconAcademic className="w-4 h-4 text-[#006764] shrink-0" />

@@ -157,7 +157,7 @@ export default function DebriefPage() {
               </p>
               <div className="bg-[#f8fafc] p-4 rounded-xl border border-slate-200 text-sm text-slate-700 space-y-2">
                 <p className="font-bold text-[#04284b] mb-1">Contact Details:</p>
-                <p><strong>Principal Researcher:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] hover:underline font-semibold">ajhz590@aucklanduni.ac.nz</a>)</p>
+                <p><strong>Student Researcher:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] hover:underline font-semibold">ajhz590@aucklanduni.ac.nz</a>)</p>
                 <p><strong>Your Study Participant ID:</strong> <span className="font-mono bg-slate-200 px-2 py-0.5 rounded text-slate-800 font-bold">{participantId}</span></p>
                 <p className="text-xs text-slate-500 italic mt-2">
                   * Note: Because data are stored without personal identifying names, your unique Participant ID above is required if you request data withdrawal.

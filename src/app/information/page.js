@@ -136,7 +136,7 @@ export default function InformationPage() {
               If you have any questions regarding this study or your rights as a participant, please contact the research team:
             </p>
             <div className="bg-white/80 backdrop-blur-xs p-4 rounded-xl border border-[#99d6d3] text-sm text-[#04284b] space-y-1.5">
-              <p><strong>Principal Researcher:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] font-bold hover:underline">ajhz590@aucklanduni.ac.nz</a>)</p>
+              <p><strong>Student Researcher:</strong> Doctoral Candidate, School of Nursing (<a href="mailto:ajhz590@aucklanduni.ac.nz" className="text-[#006764] font-bold hover:underline">ajhz590@aucklanduni.ac.nz</a>)</p>
               <p><strong>Research Supervisor:</strong> School of Nursing, University of Auckland</p>
             </div>
           </div>

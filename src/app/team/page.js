@@ -49,7 +49,7 @@ export default function ResearchTeamPage() {
         </div>
 
         <div className="max-w-4xl w-full flex flex-col space-y-8">
-          {/* Principal Researcher Card */}
+          {/* Student Researcher Card */}
           <div className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm transition-all hover:shadow-md">
             <div className="flex flex-col sm:flex-row items-start gap-6">
               <div className="w-20 h-20 rounded-2xl bg-[#eaf4f0] text-[#006764] flex items-center justify-center shrink-0 shadow-xs border border-[#d5ebe1]">
@@ -57,7 +57,7 @@ export default function ResearchTeamPage() {
               </div>
               <div className="flex-1">
                 <div className="inline-block px-3 py-1 rounded-full bg-[#f0f7f6] text-[#006764] text-xs font-bold uppercase tracking-wider mb-2">
-                  Principal Investigator
+                  Student Investigator
                 </div>
                 <h2 className="text-[#04284b] text-2xl font-bold font-serif mb-1">
                   Doctoral Research Fellow
